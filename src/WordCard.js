@@ -11,8 +11,10 @@ const prepareStateFromWorld = given_word => {
         chars,
         attempt: 1,
         guess: '',
-        complete: false
+        complete: false,
+        hint: '',
     }
+
 }
 
 export default function WordCard(props) {
@@ -34,6 +36,12 @@ export default function WordCard(props) {
                 setState({ ...state, guess: '', attempt: state.attempt + 1 })
             }
         }
+        console.log(HintCard.hintGuess)
+    }
+
+    const activeHint = d => {
+        setState({ ...state, guess: state.guess + d })
+        console.log('d == ' + state.guess)
     }
 
     return (
@@ -43,7 +51,7 @@ export default function WordCard(props) {
                     <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} />)
             }
             <div>
-                <HintCard value='Hint'  informationWord={state}/>
+                <HintCard value='Hint' activeHint={activeHint} prepareStateFromWorld={state} />
             </div>
         </div>
     )
