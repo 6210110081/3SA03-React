@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import _ from 'lodash';
 import CharacterCard from './CharacterCard'
+import HintCard from './HintCard';
 
 const prepareStateFromWorld = given_word => {
     let word = given_word.toUpperCase()
@@ -17,7 +18,7 @@ const prepareStateFromWorld = given_word => {
 export default function WordCard(props) {
 
     const [state, setState] = useState(prepareStateFromWorld(props.value))
-    
+
     const activationHandler = c => {
         console.log(`${c} has been activated.`)
 
@@ -41,6 +42,9 @@ export default function WordCard(props) {
                 state.chars.map((c, i) =>
                     <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} />)
             }
+            <div>
+                <HintCard value='Hint'  informationWord={state}/>
+            </div>
         </div>
     )
 }
