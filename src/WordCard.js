@@ -53,12 +53,12 @@ export default function WordCard(props) {
     }
 
     const reset = () => {
-        setState({ ...state, guess: '', attempt: state.attempt + 1, checkword: true, complete: false })
+        setState({ ...state, guess: '', attempt: state.attempt + 1, checkword: true, complete: false, hint: '' })
     }
 
-    const showHint = state.checkword ? (state.hint == '' ? '' : 'Charecter next is ' + state.hint) : 'Should Reset'
+    const showHint = state.checkword ? (state.hint == '' ? '' : 'Charecter next is ' + state.hint) : 'Please Click Reset'
 
-    const showCongrats = state.complete ? 'Congrats' : ''
+    const showCongrats = state.complete ? 'Congrats  !!!' : ''
 
     return (
         <div>
@@ -73,6 +73,8 @@ export default function WordCard(props) {
             <div onClick={reset} >
                 <button>reset</button>
             </div>
+            <li>*Hint สีเขียวจะแสดงคำใบ้</li>
+            <li>Hint สีขาวแสดงแค่ให้รีสตรา์ทเมื่อมีการเลือกคำผิด</li>
         </div>
 
     )
