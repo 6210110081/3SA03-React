@@ -13,6 +13,7 @@ const prepareStateFromWorld = given_word => {
         guess: '',
         complete: false,
         hint: '',
+        checkword: true
     }
 
 }
@@ -36,23 +37,43 @@ export default function WordCard(props) {
                 setState({ ...state, guess: '', attempt: state.attempt + 1 })
             }
         }
-        console.log(HintCard.hintGuess)
+        console.log('check guess = ' + guess)
     }
 
     const activeHint = d => {
-        setState({ ...state, guess: state.guess + d })
-        console.log('d == ' + state.guess)
+        setState({ ...state, hint: d })
     }
+
+    const checkWord = () => {
+        for (let i = 0; i < state.guess.length; i++) {
+            if (state.guess[i] != state.word[i]) {
+                setState({ ...state, checkword: false })
+            }
+        }
+    }
+
+    const reset = () => {
+        setState({ ...state, guess: '', attempt: state.attempt + 1, checkword: true, complete: false })
+    }
+
+    const showHint = state.checkword ? (state.hint == '' ? '' : 'Charecter next is ' + state.hint) : 'Should Reset'
+
+    const showCongrats = state.complete ? 'Congrats' : ''
 
     return (
         <div>
             {
                 state.chars.map((c, i) =>
-                    <CharacterCard value={c} key={i} activationHandler={activationHandler} attempt={state.attempt} />)
+                    <CharacterCard value={c} key={i} activeHint={state.guess} activationHandler={activationHandler} attempt={state.attempt} />)
             }
-            <div>
-                <HintCard value='Hint' activeHint={activeHint} prepareStateFromWorld={state} />
+            <h1>{showCongrats}</h1>
+            <div onClick={checkWord}>
+                <HintCard value='Hint' activeHint={activeHint} prepareStateFromWorld={state} />  {showHint}
+            </div>
+            <div onClick={reset} >
+                <button>reset</button>
             </div>
         </div>
+
     )
 }

@@ -26,6 +26,15 @@
 }
 
 .activehintCard {
+    text-align: center;
     color: red;
     background: white;
+}
+
+div{
+    text-align: center;
+}
+
+h1{
+    text-align: center;
 }
